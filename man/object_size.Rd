@@ -4,7 +4,7 @@
 \alias{object_size}
 \title{A "prettified" object.size that returns sizes formatted in Mb. The point
 here is exclusively, so far, to avoid having to type
-'format(object.size(x), 'Mb') every single time.}
+'format(object.size(x), 'Mb') so much.}
 \usage{
 object_size(object)
 }
@@ -14,5 +14,5 @@ object_size(object)
 \description{
 A "prettified" object.size that returns sizes formatted in Mb. The point
 here is exclusively, so far, to avoid having to type
-'format(object.size(x), 'Mb') every single time.
+'format(object.size(x), 'Mb') so much.
 }
