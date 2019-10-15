@@ -59,13 +59,13 @@ theme_minimal() +
 #'
 #' @param pattern a regular expression passed to rm
 #' @export
-delete.this <- function(pattern = 'nephew'){
+delete_this <- function(pattern = 'nephew'){
   rm(list = ls(pattern = pattern, name = '.GlobalEnv'), pos = 1)
 }
 
 #' A "prettified" object.size that returns sizes formatted in Mb. The point
 #' here is exclusively, so far, to avoid having to type
-#' 'format(object.size(x), 'Mb') every single time.
+#' 'format(object.size(x), 'Mb') so much.
 #'
 #' @param object an R object.
 #' @export
