@@ -205,3 +205,29 @@ prop_table <- function (..., margin = 0,
   else y/sum(y)
   z
 }
+
+
+#' A (largely untested) function that will take a named vector or a named list
+#' and reverse elements/names: the names become the elements, and the elements
+#' become the names. This is useful to me because I can never remember the
+#' structure of named lists preferred by the custom.coef.map argument in texreg.
+#'
+#' @param veclist a named vector or list.
+#' @param coerce coerce a list to a vector? silently ignored if veclist is a 
+#' vector.
+#' @export
+reverse_names <- function(veclist, coerce = FALSE){
+  if (is.null(names(veclist))){
+    stop('This function only works with named vectors or lists.')
+  }
+  if (is.list(veclist) & !coerce){
+    x <- as.list(names(veclist))
+    names(x) <- veclist
+    return(x)
+  }
+  else{
+  x <- names(veclist)
+  names(x) <- veclist
+  return(x)
+  }
+}

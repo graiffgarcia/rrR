@@ -5,9 +5,9 @@ Version: 0.1.0
 Author: Ricardo Graiff Garcia
 Maintainer: Ricardo Graiff Garcia <graiffgarcia.1@osu.edu>
 Description: Small functions that do useful things.
-License: GNU GPL 3
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: Rcpp (>= 0.12.18)
+Imports: Rcpp (>= 0.12.18), ggplot2(>= 3.0.0)
 LinkingTo: Rcpp
 RoxygenNote: 6.1.1
