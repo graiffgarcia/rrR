@@ -31,6 +31,8 @@ diffr <- function (x, y, order = "xy") {
 
 #' Better theme_map() for ggplot2.
 #'
+#' @importFrom ggplot2 theme theme_minimal element_text element_blank 
+#' @importFrom ggplot2 element_line element_rect
 #' @param ... other options to ggplot2::theme()
 #' @export
 theme_map <- function(...) {
@@ -67,6 +69,7 @@ delete_this <- function(pattern = 'nephew'){
 #' here is exclusively, so far, to avoid having to type
 #' 'format(object.size(x), 'Mb') so much.
 #'
+#' @importFrom utils object.size
 #' @param object an R object.
 #' @export
 object_size <- function(object){
@@ -84,6 +87,8 @@ object_size <- function(object){
 #'
 #' @param ... one or more objects which can be parsed by the base table function
 #' @param margin index to generate margin for
+#' @importFrom utils head
+#' @importFrom utils tail
 #' @inheritParams base::table
 #' @export
 prop_table <- function (..., margin = 0,
@@ -193,6 +198,7 @@ prop_table <- function (..., margin = 0,
     bin <- bin + pd * (a - 1L)
     pd <- pd * nl
   }
+  if (length(args) > 1)
   names(dn) <- dnn
   bin <- bin[!is.na(bin)]
   if (length(bin))
@@ -230,4 +236,49 @@ reverse_names <- function(veclist, coerce = FALSE){
   names(x) <- veclist
   return(x)
   }
+}
+
+#' A version of ggsave() meant to be piped to from a ggplot call or a ggplot
+#' object.
+#' 
+#' @importFrom ggplot2 last_plot is.ggplot
+#' @inheritParams ggplot2::ggsave
+#' @export
+save_gg <- function (plot = last_plot(), filename, device = NULL, path = NULL,
+                     scale = 1, width = NA, height = NA,
+                     units = c("in", "cm", "mm"),
+                     dpi = 300, limitsize = TRUE, ...) {
+  args <- lapply(substitute(list(...)), deparse)
+  if (is.character(plot)){
+    stop(paste('You passed a string as the first argument of this function.',
+               'Are you using ggsave() syntax? This function is meant to be',
+               'piped to from a ggplot() call, so the first argument is the',
+               'plot itself, not the filename.'))
+  }
+  else if (!is.ggplot(plot)){
+    stop('plot needs to be a "ggplot" class object.')
+  }
+  dpi <- ggplot2:::parse_dpi(dpi)
+  dev <- ggplot2:::plot_dev(device, filename, dpi = dpi)
+  dim <- ggplot2:::plot_dim(c(width, height), scale = scale, units = units,
+                            limitsize = limitsize)
+  if (!is.null(path)) {
+    filename <- file.path(path, filename)
+  }
+  old_dev <- grDevices::dev.cur()
+  if (capabilities('cairo') & grepl('\\.png$', filename) &
+      !('type' %in% names(args))){
+    dev(filename = filename, width = dim[1], height = dim[2],
+        type = 'cairo-png', ...)
+  }
+  else{
+    dev(filename = filename, width = dim[1], height = dim[2],
+        ...)
+  }
+  on.exit(utils::capture.output({
+    grDevices::dev.off()
+    if (old_dev > 1) grDevices::dev.set(old_dev)
+  }))
+  ggplot2:::grid.draw.ggplot(plot)
+  invisible()
 }
