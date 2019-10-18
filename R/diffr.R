@@ -96,7 +96,8 @@ prop_table <- function (..., margin = 0,
                         useNA = c("no", "ifany", "always"),
                         dnn = list.names(...), deparse.level = 1) {
   args <- list(...)
-  if (tail(args, 1) %in% c(1:3)) margin <- tail(args, 1)[[1L]]
+  if (tail(args, 1) %in% c(1:3)) 
+    margin <- tail(args, 1)[[1L]]
   list.names <- function(...) {
     l <- as.list(substitute(list(...)[-1]))[-1L]
     if (length(l) == 3) l <- l[-3]
@@ -199,7 +200,7 @@ prop_table <- function (..., margin = 0,
     pd <- pd * nl
   }
   if (length(args) > 1)
-  names(dn) <- dnn
+    names(dn) <- dnn
   bin <- bin[!is.na(bin)]
   if (length(bin))
     bin <- bin + 1L
