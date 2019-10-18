@@ -96,7 +96,8 @@ prop_table <- function (..., margin = 0,
                         useNA = c("no", "ifany", "always"),
                         dnn = list.names(...), deparse.level = 1) {
   args <- list(...)
-  if (tail(args, 1) %in% c(1:3)) 
+  argnames <- as.character(substitute(list(...)))
+  if (tail(argnames, 1) %in% c(1:3)) 
     margin <- tail(args, 1)[[1L]]
   list.names <- function(...) {
     l <- as.list(substitute(list(...)[-1]))[-1L]
@@ -135,7 +136,7 @@ prop_table <- function (..., margin = 0,
         argn
     else paste(dnn[1L], seq_along(args), sep = ".")
   }
-  else if (tail(args, 1) %in% c(1:3)) {
+  else if (tail(argnames, 1) %in% c(1:3)) {
     args <- head(args, -1)
   }
   bin <- 0L
