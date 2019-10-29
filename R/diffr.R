@@ -76,6 +76,13 @@ object_size <- function(object){
   return(format(object.size(object), 'Mb'))
 }
 
+#' A function that prints a named vector with the object_sizes of the objects
+#' in the .GlobalEnv.
+#' @export
+global_size <- function(){
+  sapply(sapply(ls(), as.symbol), function(x)object_size(eval(x)))
+}
+
 #' A version of prop.table that takes any R object that the 'table' function
 #' will accept. This, like object_size, is a convenience function so that you
 #' don't have to always type prop.table(table(object)). This function allows you

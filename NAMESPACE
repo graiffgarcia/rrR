@@ -2,6 +2,7 @@
 
 export(delete_this)
 export(diffr)
+export(global_size)
 export(object_size)
 export(prop_table)
 export(reverse_names)
