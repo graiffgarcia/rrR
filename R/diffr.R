@@ -80,7 +80,7 @@ object_size <- function(object){
 #' in the .GlobalEnv.
 #' @export
 global_size <- function(){
-  sapply(sapply(ls(), as.symbol), function(x)object_size(eval(x)))
+  sapply(sapply(ls(.GlobalEnv), as.symbol), function(x)object_size(eval(x)))
 }
 
 #' A version of prop.table that takes any R object that the 'table' function
