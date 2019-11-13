@@ -36,7 +36,7 @@ diffr <- function (x, y, order = "xy") {
 #' @param ... other options to ggplot2::theme()
 #' @export
 theme_map <- function(...) {
-theme_minimal(...) +
+theme_minimal() +
   theme(text = element_text(family = "Brandon Grotesque Medium",
                             color = "#22211d", size = 13),
         axis.line = element_blank(),
@@ -53,7 +53,8 @@ theme_minimal(...) +
         strip.background = element_rect(fill = "#f5f5f2"),
         panel.border = element_blank(),
         rect = element_rect(linetype = 0, colour = NA),
-        legend.key = element_rect(fill = "#f5f5f2"))
+        legend.key = element_rect(fill = "#f5f5f2"),
+        ...)
 }
 
 #' A function to automatically remove temporary objects from your .GlobalEnv.
