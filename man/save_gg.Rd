@@ -14,7 +14,7 @@ save_gg(plot = last_plot(), filename, device = NULL, path = NULL,
 
 \item{filename}{File name to create on disk.}
 
-\item{device}{Device to use. Can either be a device function
+\item{device}{Device to use. Can be either be a device function
 (e.g. \code{\link[=png]{png()}}), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
 

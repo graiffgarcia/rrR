@@ -57,6 +57,31 @@ theme_minimal() +
         ...)
 }
 
+#' A function that extends ggplot2::annotation_custom by automatically
+#' picking a textGrob, and allowing the user to pass the graphical parameters
+#' of the grob into the function call itself.
+#' 
+#' @importFrom grid textGrob gpar
+#' @importFrom ggplot2 layer
+#' @inheritParams ggplot2::annotation_custom
+#' @param label a string.
+#' @param ... optional, passed to grid::gpar.
+#' 
+#' @export
+annotation_custom_text <- function (label, xmin = -Inf, xmax = Inf, 
+                                    ymin = -Inf, ymax = Inf, ...) {
+  grob <- grid::textGrob(label, gp = grid::gpar(...))
+  layer(data = data.frame(x = NA), stat = StatIdentity, 
+        position = PositionIdentity, geom = GeomCustomAnn, 
+        inherit.aes = FALSE, 
+        params = list(grob = grob, xmin = xmin, xmax = xmax, 
+                      ymin = ymin, ymax = ymax))
+  cat(paste("Don't forget to set plot.margin in theme() and clip = 'off'",
+            "in coord_cartesian()!"))
+}
+
+
+
 #' A function to automatically remove temporary objects from your .GlobalEnv.
 #'
 #' @param pattern a regular expression passed to rm
