@@ -76,8 +76,8 @@ annotation_custom_text <- function (label, xmin = -Inf, xmax = Inf,
         inherit.aes = FALSE, 
         params = list(grob = grob, xmin = xmin, xmax = xmax, 
                       ymin = ymin, ymax = ymax))
-  cat(paste("Don't forget to set plot.margin in theme() and clip = 'off'",
-            "in coord_cartesian()!"))
+  cat(paste("Don't forget to set plot.margin in theme()",
+            "and clip = 'off' in coord_cartesian() if needed!"))
 }
 
 
