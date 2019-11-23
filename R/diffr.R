@@ -29,59 +29,6 @@ diffr <- function (x, y, order = "xy") {
   }
 }
 
-#' Better theme_map() for ggplot2.
-#'
-#' @importFrom ggplot2 theme theme_minimal element_text element_blank 
-#' @importFrom ggplot2 element_line element_rect
-#' @param ... other options to ggplot2::theme()
-#' @export
-theme_map <- function(...) {
-theme_minimal() +
-  theme(text = element_text(family = "Brandon Grotesque Medium",
-                            color = "#22211d", size = 13),
-        axis.line = element_blank(),
-        axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        panel.grid.major = element_line(color = "#ebebe5", size = 0.2),
-        panel.grid.minor = element_blank(),
-        plot.background = element_rect(fill = "#f5f5f2"),
-        panel.background = element_rect(fill = "#f5f5f2"),
-        legend.background = element_rect(fill = "#f5f5f2"),
-        strip.background = element_rect(fill = "#f5f5f2"),
-        panel.border = element_blank(),
-        rect = element_rect(linetype = 0, colour = NA),
-        legend.key = element_rect(fill = "#f5f5f2"),
-        ...)
-}
-
-#' A function that extends ggplot2::annotation_custom by automatically
-#' picking a textGrob, and allowing the user to pass the graphical parameters
-#' of the grob into the function call itself.
-#' 
-#' @importFrom grid textGrob gpar
-#' @importFrom ggplot2 layer
-#' @inheritParams ggplot2::annotation_custom
-#' @param label a string.
-#' @param ... optional, passed to grid::gpar.
-#' 
-#' @export
-annotation_custom_text <- function (label, xmin = -Inf, xmax = Inf, 
-                                    ymin = -Inf, ymax = Inf, ...) {
-  grob <- grid::textGrob(label, gp = grid::gpar(...))
-  layer(data = data.frame(x = NA), stat = StatIdentity, 
-        position = PositionIdentity, geom = GeomCustomAnn, 
-        inherit.aes = FALSE, 
-        params = list(grob = grob, xmin = xmin, xmax = xmax, 
-                      ymin = ymin, ymax = ymax))
-  cat(paste("Don't forget to set plot.margin in theme()",
-            "and clip = 'off' in coord_cartesian() if needed!"))
-}
-
-
-
 #' A function to automatically remove temporary objects from your .GlobalEnv.
 #'
 #' @param pattern a regular expression passed to rm
@@ -276,49 +223,4 @@ reverse_names <- function(veclist, coerce = FALSE){
   names(x) <- veclist
   return(x)
   }
-}
-
-#' A version of ggsave() meant to be piped to from a ggplot call or a ggplot
-#' object.
-#' 
-#' @importFrom ggplot2 last_plot is.ggplot
-#' @inheritParams ggplot2::ggsave
-#' @export
-save_gg <- function (plot = last_plot(), filename, device = NULL, path = NULL,
-                     scale = 1, width = NA, height = NA,
-                     units = c("in", "cm", "mm"),
-                     dpi = 300, limitsize = TRUE, ...) {
-  args <- lapply(substitute(list(...)), deparse)
-  if (is.character(plot)){
-    stop(paste('You passed a string as the first argument of this function.',
-               'Are you using ggsave() syntax? This function is meant to be',
-               'piped to from a ggplot() call, so the first argument is the',
-               'plot itself, not the filename.'))
-  }
-  else if (!is.ggplot(plot)){
-    stop('plot needs to be a "ggplot" class object.')
-  }
-  dpi <- ggplot2:::parse_dpi(dpi)
-  dev <- ggplot2:::plot_dev(device, filename, dpi = dpi)
-  dim <- ggplot2:::plot_dim(c(width, height), scale = scale, units = units,
-                            limitsize = limitsize)
-  if (!is.null(path)) {
-    filename <- file.path(path, filename)
-  }
-  old_dev <- grDevices::dev.cur()
-  if (capabilities('cairo') & grepl('\\.png$', filename) &
-      !('type' %in% names(args))){
-    dev(filename = filename, width = dim[1], height = dim[2],
-        type = 'cairo-png', ...)
-  }
-  else{
-    dev(filename = filename, width = dim[1], height = dim[2],
-        ...)
-  }
-  on.exit(utils::capture.output({
-    grDevices::dev.off()
-    if (old_dev > 1) grDevices::dev.set(old_dev)
-  }))
-  ggplot2:::grid.draw.ggplot(plot)
-  invisible()
 }
