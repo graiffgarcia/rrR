@@ -2,9 +2,7 @@
 % Please edit documentation in R/diffr.R
 \name{object_size}
 \alias{object_size}
-\title{A "prettified" object.size that returns sizes formatted in Mb. The point
-here is exclusively, so far, to avoid having to type
-'format(object.size(x), 'Mb') so much.}
+\title{A "prettified" object.size that returns sizes formatted in Mb.}
 \usage{
 object_size(object)
 }
@@ -12,7 +10,7 @@ object_size(object)
 \item{object}{an R object.}
 }
 \description{
-A "prettified" object.size that returns sizes formatted in Mb. The point
-here is exclusively, so far, to avoid having to type
-'format(object.size(x), 'Mb') so much.
+object_size is a nicer object.size for large objects; it returns sizes 
+formatted in Mb. The point is to avoid having to type format(object.size(x),
+ 'Mb') so much.
 }

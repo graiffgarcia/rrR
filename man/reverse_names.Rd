@@ -2,10 +2,8 @@
 % Please edit documentation in R/diffr.R
 \name{reverse_names}
 \alias{reverse_names}
-\title{A (largely untested) function that will take a named vector or a named list
-and reverse elements/names: the names become the elements, and the elements
-become the names. This is useful to me because I can never remember the
-structure of named lists preferred by the custom.coef.map argument in texreg.}
+\title{A function that takes a named vector or list and turns the names into the 
+elements, and the elements into the names.}
 \usage{
 reverse_names(veclist, coerce = FALSE)
 }

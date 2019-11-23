@@ -5,16 +5,26 @@
 \title{A version of ggsave() meant to be piped to from a ggplot call or a ggplot
 object.}
 \usage{
-save_gg(plot = last_plot(), filename, device = NULL, path = NULL,
-  scale = 1, width = NA, height = NA, units = c("in", "cm", "mm"),
-  dpi = 300, limitsize = TRUE, ...)
+save_gg(
+  plot = last_plot(),
+  filename,
+  device = NULL,
+  path = NULL,
+  scale = 1,
+  width = NA,
+  height = NA,
+  units = c("in", "cm", "mm"),
+  dpi = 300,
+  limitsize = TRUE,
+  ...
+)
 }
 \arguments{
 \item{plot}{Plot to save, defaults to last plot displayed.}
 
 \item{filename}{File name to create on disk.}
 
-\item{device}{Device to use. Can be either be a device function
+\item{device}{Device to use. Can either be a device function
 (e.g. \code{\link[=png]{png()}}), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
 

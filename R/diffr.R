@@ -90,9 +90,11 @@ delete_this <- function(pattern = 'nephew'){
   rm(list = ls(pattern = pattern, name = '.GlobalEnv'), pos = 1)
 }
 
-#' A "prettified" object.size that returns sizes formatted in Mb. The point
-#' here is exclusively, so far, to avoid having to type
-#' 'format(object.size(x), 'Mb') so much.
+#' A "prettified" object.size that returns sizes formatted in Mb. 
+#' 
+#' object_size is a nicer object.size for large objects; it returns sizes 
+#' formatted in Mb. The point is to avoid having to type format(object.size(x),
+#'  'Mb') so much.
 #'
 #' @importFrom utils object.size
 #' @param object an R object.
@@ -108,6 +110,8 @@ global_size <- function(){
   sapply(sapply(ls(.GlobalEnv), as.symbol), function(x)object_size(eval(x)))
 }
 
+#' A version of prop.table that takes variables directly (like table).
+#' 
 #' A version of prop.table that takes any R object that the 'table' function
 #' will accept. This, like object_size, is a convenience function so that you
 #' don't have to always type prop.table(table(object)). This function allows you
@@ -246,7 +250,9 @@ prop_table <- function (..., margin = 0,
   z
 }
 
-
+#' A function that takes a named vector or list and turns the names into the 
+#' elements, and the elements into the names.
+#' 
 #' A (largely untested) function that will take a named vector or a named list
 #' and reverse elements/names: the names become the elements, and the elements
 #' become the names. This is useful to me because I can never remember the

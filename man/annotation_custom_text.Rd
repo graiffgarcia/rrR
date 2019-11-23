@@ -6,8 +6,14 @@
 picking a textGrob, and allowing the user to pass the graphical parameters
 of the grob into the function call itself.}
 \usage{
-annotation_custom_text(label, xmin = -Inf, xmax = Inf, ymin = -Inf,
-  ymax = Inf, ...)
+annotation_custom_text(
+  label,
+  xmin = -Inf,
+  xmax = Inf,
+  ymin = -Inf,
+  ymax = Inf,
+  ...
+)
 }
 \arguments{
 \item{label}{a string.}

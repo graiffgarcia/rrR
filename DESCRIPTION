@@ -9,4 +9,4 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: Rcpp (>= 0.12.18), ggplot2(>= 3.0.0)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
