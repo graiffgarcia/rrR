@@ -4,7 +4,10 @@
 \alias{rprop_table}
 \title{A shortcut for prop_table that displays values as percentages and rounds
 them. For example, rprop_table(var, 1) is equivalent to 
-round(prop_table(var)*100, 1).}
+round(prop_table(var)*100, 1).
+ 
+To avoid confusion with the margin argument in prop_table, the digits
+argument here must be named.}
 \usage{
 rprop_table(..., digits = 1)
 }
@@ -19,4 +22,7 @@ rprop_table(..., digits = 1)
 A shortcut for prop_table that displays values as percentages and rounds
 them. For example, rprop_table(var, 1) is equivalent to 
 round(prop_table(var)*100, 1).
+ 
+To avoid confusion with the margin argument in prop_table, the digits
+argument here must be named.
 }
