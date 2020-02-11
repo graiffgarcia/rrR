@@ -197,6 +197,17 @@ prop_table <- function (..., margin = 0,
   z
 }
 
+#' A shortcut for prop_table that displays values as percentages and rounds
+#' them. For example, rprop_table(var, 1) is equivalent to 
+#' round(prop_table(var)*100, 1). 
+#' @inheritParams base::round
+#' @inheritParams prop_table
+#' 
+#' @export
+rprop_table <- function(..., digits = 1){
+  round(prop_table(...)*100, digits)
+}
+
 #' A function that takes a named vector or list and turns the names into the 
 #' elements, and the elements into the names.
 #' 

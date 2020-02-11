@@ -4,14 +4,9 @@
 \alias{prop_table}
 \title{A version of prop.table that takes variables directly (like table).}
 \usage{
-prop_table(
-  ...,
-  margin = 0,
-  exclude = if (useNA == "no") c(NA, NaN),
-  useNA = c("no", "ifany", "always"),
-  dnn = list.names(...),
-  deparse.level = 1
-)
+prop_table(..., margin = 0, exclude = if (useNA == "no") c(NA, NaN),
+  useNA = c("no", "ifany", "always"), dnn = list.names(...),
+  deparse.level = 1)
 }
 \arguments{
 \item{...}{one or more objects which can be parsed by the base table function}
@@ -19,7 +14,7 @@ prop_table(
 \item{margin}{index to generate margin for}
 
 \item{exclude}{levels to remove for all factors in \code{\dots}.  If
-    it does not contain \code{\link[base]{NA}} and \code{useNA} is not
+    it does not contain \code{\link{NA}} and \code{useNA} is not
     specified, it implies \code{useNA = "ifany"}.  See
     \sQuote{Details} for its interpretation for non-factor arguments.}
 
