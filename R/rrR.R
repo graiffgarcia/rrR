@@ -34,6 +34,9 @@ diffr <- function (x, y, order = "xy") {
 #' @param pattern a regular expression passed to rm
 #' @export
 delete_this <- function(pattern = 'nephew'){
+  if(!is.character(pattern)){
+    stop('pattern must be passed as a string.')
+  }
   rm(list = ls(pattern = pattern, name = '.GlobalEnv'), pos = 1)
 }
 
