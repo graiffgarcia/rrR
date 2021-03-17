@@ -1,3 +1,5 @@
+#' A more flexible setdiff
+#'
 #' A version of setdiff with a "reverse order" option and a "cbind" version
 #' that combines the "regular" and the "reverse" order into a data.frame.
 #'
@@ -200,8 +202,10 @@ prop_table <- function (..., margin = 0,
   z
 }
 
-#' A shortcut for prop_table that displays values as percentages and rounds
-#' them. For example, rprop_table(var, 1) is equivalent to 
+#' Express a prop_table in percentages
+#' 
+#' A shortcut for prop_table that displays values as percentages and 
+#' rounds them. For example, rprop_table(var, 1) is equivalent to 
 #' round(prop_table(var)*100, 1).
 #'  
 #' To avoid confusion with the margin argument in prop_table, the digits
@@ -242,7 +246,17 @@ reverse_names <- function(veclist, coerce = FALSE){
   }
 }
 
-#' %nin%
-#' A reverse %in%.
+#' @title Reverse matching
+#' @name %nin%
+#' 
+#' @description A reverse \%in\%.
+#' 
+#' @usage a \%nin\% b
+#' 
+#' 
+#' @examples
+#'  'a' %nin% letters # returns FALSE
+#'  'a' %nin% LETTERS # returns TRUE
+#'
 #' @export
 `%nin%` <- Negate(`%in%`)

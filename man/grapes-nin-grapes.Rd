@@ -2,10 +2,15 @@
 % Please edit documentation in R/rrR.R
 \name{\%nin\%}
 \alias{\%nin\%}
-\title{the opposite of %in%}
+\title{Reverse matching}
 \usage{
-... \%nin\% NA
+a \%nin\% b
 }
 \description{
-the opposite of %in%
+A reverse \%in\%.
+}
+\examples{
+ 'a' \%nin\% letters # returns FALSE
+ 'a' \%nin\% LETTERS # returns TRUE
+
 }

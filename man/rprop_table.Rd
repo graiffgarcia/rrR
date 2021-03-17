@@ -2,12 +2,7 @@
 % Please edit documentation in R/rrR.R
 \name{rprop_table}
 \alias{rprop_table}
-\title{A shortcut for prop_table that displays values as percentages and rounds
-them. For example, rprop_table(var, 1) is equivalent to 
-round(prop_table(var)*100, 1).
- 
-To avoid confusion with the margin argument in prop_table, the digits
-argument here must be named.}
+\title{Express a prop_table in percentages}
 \usage{
 rprop_table(..., digits = 1)
 }
@@ -19,8 +14,8 @@ rprop_table(..., digits = 1)
     Negative values are allowed (see \sQuote{Details}).}
 }
 \description{
-A shortcut for prop_table that displays values as percentages and rounds
-them. For example, rprop_table(var, 1) is equivalent to 
+A shortcut for prop_table that displays values as percentages and 
+rounds them. For example, rprop_table(var, 1) is equivalent to 
 round(prop_table(var)*100, 1).
  
 To avoid confusion with the margin argument in prop_table, the digits

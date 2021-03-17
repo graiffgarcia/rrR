@@ -2,8 +2,7 @@
 % Please edit documentation in R/rrR.R
 \name{diffr}
 \alias{diffr}
-\title{A version of setdiff with a "reverse order" option and a "cbind" version
-that combines the "regular" and the "reverse" order into a data.frame.}
+\title{A more flexible setdiff}
 \usage{
 diffr(x, y, order = "xy")
 }
