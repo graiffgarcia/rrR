@@ -241,3 +241,8 @@ reverse_names <- function(veclist, coerce = FALSE){
   return(x)
   }
 }
+
+#' %nin%
+#' A reverse %in%.
+#' @export
+`%nin%` <- Negate(`%in%`)
