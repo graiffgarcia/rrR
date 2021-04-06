@@ -209,13 +209,25 @@ prop_table <- function (..., margin = 0,
 #' round(prop_table(var)*100, 1).
 #'  
 #' To avoid confusion with the margin argument in prop_table, the digits
-#' argument here must be named.
+#' argument here must be named. to allow for piping, in a way similar to 
+#' wtable(), the margin argument here must be named as well.
+#' @param margin index to generate margin for
 #' @inheritParams base::round
 #' @inheritParams prop_table
+#' @importFrom rlang eval_tidy
 #' 
 #' @export
-rprop_table <- function(..., digits = 1){
-  round(prop_table(...)*100, digits)
+rprop_table <- function(..., margin = 0, digits = 1){
+  args <- enquos(...)
+  if (is(eval_tidy(args[[1]]), 'data.frame')){
+    .data = eval_tidy(args[[1]])
+    eval(substitute(round(prop_table(list(...)[-1], margin = margin)*100,
+                          digits)),
+         .data, enclos = parent.frame())
+  }
+  else {
+    round(prop_table(..., margin = margin)*100, digits)
+  }
 }
 
 #' A function that takes a named vector or list and turns the names into the 
@@ -260,3 +272,46 @@ reverse_names <- function(veclist, coerce = FALSE){
 #'
 #' @export
 `%nin%` <- Negate(`%in%`)
+
+#' Find all objects in .GlobalEnv of a given class.
+#'
+#' A function to quickly list all objects in your global environment of a given
+#' class. Useful to me for one main reason: you can pass it to rm, with
+#' rm(list = which_is_class('something something'))
+#' This is quite convenient if, for example, you have a database connection,
+#' assign a bunch of tables to objects, and later want to remove all of those
+#' because you're done pulling data, because you closed the connection,
+#' or because you've quit the project in a fit of rage.
+#' 
+#' @param class_name a string, or a vector or list of strings.
+#' @export
+which_is_class <- function(class_name){
+  class_list <- sapply(sapply(ls(.GlobalEnv), as.symbol), 
+                       function(x) class(eval(x)))
+  class_matches <- sapply(class_list, 
+                          function(x) ifelse(class_name %in% x, x, ''))
+  if (is.matrix(class_matches)) {
+    return(names(which(apply(class_matches, 2, function(x) any(x != '')))))
+  }
+  else {
+    return(names(class_matches[which(class_matches != "")]))
+  }
+}
+
+#' A cousin of table(), appropriate for piping.
+#'
+#' This function -- identical to with() except for a direct call to table()
+#' allows you to pipe to the table function. In practice, this means that you
+#' can write df %>% wtable(variable) instead of df %>% {table(.$variable)}, or
+#' df %>% with(table(variable)), or even df %$% table(variable). You might find
+#' this function quite dumb -- and I don't blame you! -- but it does make things
+#' slightly faster for me. 
+#' 
+#' 
+#' @param .data a data frame, tibble, data table, etc. if the object works with
+#' the with() function, it works here.
+#' @param ... variables/arguments to be passed to table().
+#' @export
+wtable <- function(.data, ...){
+  eval(substitute(table(...)), .data, enclos = parent.frame())
+}
